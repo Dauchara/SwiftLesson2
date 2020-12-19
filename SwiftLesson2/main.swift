@@ -43,12 +43,57 @@ func deleteValuesFromArray(array:[Int]) -> [Int] {
     return outputArray
 }
 
-func fibonachi(_ n: Int) -> Int {
+func fibonachiRecurs(_ n: Int) -> Int {
     if n == 0 || n == 1 {
         return n
     } else {
-        return fibonachi(n - 1) + fibonachi(n - 2)
+        return fibonachiRecurs(n - 1) + fibonachiRecurs(n - 2)
     }
+}
+
+func fibonachi() -> [Double] {
+    
+    var stepOne: Double = 0
+    var stepTwo: Double = 1
+    var outputArray: [Double] = []
+    
+    for _ in 0..<100 {
+        //fibonachiRecurs(i)
+        let temp = stepOne
+        stepOne = stepTwo
+        outputArray.append(stepOne)
+        
+        stepTwo += temp
+    }
+    
+    return outputArray
+}
+
+func methodEratosthenes(_ valuesCount: Int) -> [Int] {
+    
+    var outputArray = [Int](2...100)
+    
+    //repeat {
+    var p = 2
+    //outputArray.append(<#T##newElement: Int##Int#>)
+    
+    while p != 0 {
+        for i in 2...valuesCount {
+            if let index = outputArray.firstIndex(of: (i * p)) {
+                outputArray.remove(at: index)
+            }
+        }
+        
+        if let index = outputArray.firstIndex(of: p), index != (outputArray.endIndex - 1) {
+            p = outputArray[index + 1]
+        } else {
+            p = 0
+        }
+    }
+    //} while outputArray.count != valuesCount
+        
+    
+    return outputArray
 }
 
 //Task 1
@@ -65,8 +110,11 @@ print(array)
 var changedArray = deleteValuesFromArray(array: array)
 print(changedArray)
 
-//Task 5
-var fibonachiArray: [Int] = []
+//Task 5 without recursion
+var fibonachiArray: [Double] = fibonachi()
 print(fibonachiArray)
 
+//Task 6
+var simpleValues: [Int] = methodEratosthenes(100)
+print(simpleValues)
 
